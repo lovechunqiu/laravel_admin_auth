@@ -14,3 +14,22 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+//后台路由
+Route::any('admin/login', 'Admin\LoginController@login');
+Route::get('admin/code', 'Admin\LoginController@code');
+Route::group(['middleware' => ['admin.login'], 'prefix' => 'admin', 'namespace' => 'Admin'], function(){
+    Route::get('/', 'IndexController@index');
+    Route::get('logout', 'LoginController@logout');
+    Route::get('welcome', 'WelcomeController@index');
+
+    //清除缓存
+    Route::get('cleanall', 'SettingController@cleanall');
+
+    //网站管理
+    Route::any('websetting', 'SettingController@websetting');
+    Route::get('dodelweb', 'SettingController@dodelweb');
+
+
+
+});

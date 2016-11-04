@@ -7,6 +7,9 @@
  * @author   Taylor Otwell <taylorotwell@gmail.com>
  */
 
+//打开原生的session
+session_start();
+
 $uri = urldecode(
     parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH)
 );
