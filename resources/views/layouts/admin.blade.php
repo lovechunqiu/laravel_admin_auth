@@ -5,8 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
     <title>后台管理中心</title>
 
+    <link href="{{asset('resources/views/admin/css/style.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{asset('resources/views/admin/css/main.css')}}" rel="stylesheet" type="text/css" />
     <script type="text/javascript" src="{{asset('resources/views/admin/js/plugins/ui/jquery-1.7.1.min.js')}}"></script>
+    <script type="text/javascript" src="{{asset('resources/views/admin/js/common.js')}}"></script>
+    <script type="text/javascript" src="{{asset('resources/views/admin/js/plugins/ui/admincommon.js')}}"></script>
 
     <script type="text/javascript" src="{{asset('resources/views/admin/js/plugins/ui/jquery.easytabs.min.js')}}"></script>
     <script type="text/javascript" src="{{asset('resources/views/admin/js/plugins/ui/jquery.collapsible.min.js')}}"></script>
@@ -26,3 +29,5 @@
     window.dialog = dialog;
 </script>
 @yield('content')
+
+<script type="text/javascript" src="{{asset('resources/views/admin/js/plugins/ui/index.js')}}"></script>

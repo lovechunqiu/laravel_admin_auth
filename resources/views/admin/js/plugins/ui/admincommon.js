@@ -34,7 +34,7 @@ function checkAll(o){
 }
 
 //删除及影响
-function del(aid, url) {
+function del(token, aid, url) {
 
     aid = aid ? aid : getChecked();
     aid = aid.toString();
@@ -57,7 +57,7 @@ function del(aid, url) {
             {
               value: '同意',
               callback: function () {
-                delResponse(aid, url);
+                delResponse(token, aid, url);
               },
               autofocus: true
             },
@@ -69,15 +69,16 @@ function del(aid, url) {
     
 }
 
-function delResponse(aid, url){
+function delResponse(token, aid, url){
 
     if(url){
         delUrl = url;
     }
 
     //提交修改
-    var datas = {'idarr':aid};
-    $.post(delUrl, datas,function(res1){
+    var datas = {'_method':'delete','_token':token};
+    $.post(delUrl + '/' + aid, datas,function(res1){
+        //console.log(res1);
         var res = eval("("+res1+")");
         if(res.status == '0') {
             tanDialog(res.info);

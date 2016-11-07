@@ -28,8 +28,16 @@ Route::group(['middleware' => ['admin.login'], 'prefix' => 'admin', 'namespace' 
 
     //网站管理
     Route::any('websetting', 'SettingController@websetting');
-    Route::get('dodelweb', 'SettingController@dodelweb');
+    Route::post('dodelweb', 'SettingController@dodelweb');
+    Route::post('setting/doadd', 'SettingController@doadd');
 
+    //日志管理
+    Route::get('adminlogs', 'AdminLogsController@index');
 
+    //管理员管理
+    Route::resource('adminuser', 'AdminUserController');
+
+    //权限管理
+    Route::resource('auth', 'AuthController');
 
 });

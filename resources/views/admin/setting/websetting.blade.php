@@ -8,8 +8,119 @@
 <div class="pubheit"></div>
 <h5 class="widget-name"><i class="icon-text-height"></i>站点配置</h5>
 
+<!-- 搜索用户 -->
 
+<div id="searchUser_div" style="display:none;">
+    <form class="form-horizontal" method="post" action="" onsubmit="return false;">
+        <fieldset>
+            <div class="row-fluid">
+                <div class="navbar">
+                    <div class="navbar-inner">
+                        <h6>添加新参数 [ <a href="javascript:void(0);" onclick="addWebSetting();">隐藏</a> ]</h6>
+                    </div>
+                </div>
+                <div class="well">
+                    @if(count($errors) > 0)
+                    <div class="control-group">
+                        <label class="control-label"></label>
+                        <div class="controls">
+                            @if(is_object($errors))
+                                @foreach($errors->all() as $error)
+                                    <p>{{$error}}</p>
+                                @endforeach
+                            @else
+                                <p>{{$errors}}</p>
+                            @endif
+                        </div>
+                    </div>
+                    @endif
+                    <div class="control-group">
+                        <label class="control-label">参数名称：</label>
+                        <div class="controls">
+                            <input class="span4" type="text" name="name" id="name">
+                            便于自己知道此参数的作用的名称
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">参数代码：</label>
+                        <div class="controls">
+                            <input class="span4" type="text" name="code" id="code">
+                            在模板中引用的代码，尽量不要和系统变更重命，可以加前缀，如ttxf_
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">参数类型：</label>
+                        <div class="controls">
+                            <select name="type" class="span4" id="type">
+                                <option value="input">单行文本</option>
+                                <option value="textarea">多行文本</option>
+                            </select>
+                            参数的类型：单行文本所保存内容较小，多行文本可保存较多内容
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">参数说明：</label>
+                        <div class="controls">
+                            <input class="span4" type="text" name="tip" id="tip">
+                            用来更详细的说明此参数的作用
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">参数排序：</label>
+                        <div class="controls">
+                            <input class="span4" type="text" name="order_sn" id="order_sn" value="0">
+                            参数在管理列表中的排序，越大越靠前
+                        </div>
+                    </div>
+                    <div class="form-actions align-left">
+                        <button class="btn btn-primary" type="submit" id="showwait" onclick="addNewSetting();">添加</button>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+    </form>
+    <div class="pubheit"></div>
+</div>
 
+<script type="text/javascript">
+    function addNewSetting(){
+        var name=$("#name").val();
+        var code=$("#code").val();
+        var type=$("#type").val();
+        var tip=$("#tip").val();
+        var order_sn=$("#order_sn").val();
+
+        if(name==""){
+            tanDialog('参数名不能为空');
+            $("#name").focus();
+            return false;
+        }else if(code==""){
+            tanDialog('参数代码不能为空');
+            $("#code").focus();
+            return false;
+        }else if(!order_sn.match(/^[\d]+$/)){
+            tanDialog('参数排序只能为数字');
+            $("#order_sn").focus();
+            return false;
+        }
+
+        var datas = {'name':name,'code':code,'type':type,'order_sn':order_sn,'tip':tip,'_token':'{{csrf_token()}}'};
+        $.post("{{url('admin/setting/doadd')}}", datas,addSettingResponse,'json');
+    }
+
+    function addSettingResponse(res){
+        if(!res.status){
+            tanDialog(res.info);
+        }else{
+            var name=$("#name").val('');
+            var code=$("#code").val('');
+            var type=$("#type").val('');
+            var tip=$("#tip").val('');
+            var order_sn=$("#order_sn").val('');
+            tanDialog('新增成功');
+        }
+    }
+</script>
 
 <!-- 搜索用户 -->
 
@@ -17,6 +128,7 @@
     {{csrf_field()}}
     <fieldset>
         <div class="row-fluid">
+            @if(get_other_auth('setting', 'doadd'))
             <div class="navbar">
                 <div class="navbar-inner">
                     <h6>
@@ -26,6 +138,7 @@
                     </h6>
                 </div>
             </div>
+            @endif
             <div class="well">
                 @foreach($list as $key => $value)
                 <div class="control-group" id="line_{{$value->id}}">
@@ -63,13 +176,11 @@
 <script type="text/javascript">
     $(document).ready(function(){
         $(".control-label").mouseover(function(){
-                    $(this).find(".a_del").css({"display":"block","float":"left"})
-                }
-        )
+            $(this).find(".a_del").css({"display":"block","float":"left"})
+        })
         $(".control-label").mouseleave(function(){
-                    $(this).find(".a_del").css("display","none")
-                }
-        )
+            $(this).find(".a_del").css("display","none")
+        })
     });
     function delx(id){
 
@@ -101,6 +212,19 @@
         }
         var msg = res.message;
         tanDialog(msg);
+    }
+
+    var isSearchHidden = 1;
+    function addWebSetting() {
+        if(isSearchHidden == 1) {
+            $("#searchUser_div").slideDown("fast");
+            $(".searchUser_action").html("添加完毕");
+            isSearchHidden = 0;
+        }else {
+            $("#searchUser_div").slideUp("fast");
+            $(".searchUser_action").html("添加新参数");
+            isSearchHidden = 1;
+        }
     }
 </script>
 @endsection

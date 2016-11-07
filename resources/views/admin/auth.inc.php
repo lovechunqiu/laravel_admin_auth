@@ -10,42 +10,6 @@ $auth_inc[$i]['low_leve']['global']  global是model
 $auth_inc =  array();
 $i=0;
 $auth_inc[$i]['low_title'][] = '全局设置';
-$auth_inc[$i]['low_leve']['setting']= array(
-	"网站设置" =>array(
-		"列表" 		=> 'at1',
-		"增加" 		=> 'at2',
-		"删除" 		=> 'at3',
-		"修改" 		=> 'at4',
-	),
-	"所有缓存" =>array(
-		"清除" 		=> 'at22',
-	),
-   "data" => array(
-   		//网站设置
-		'eqaction_websetting'  => 'at1',
-		'eqaction_doadd'       => 'at2',
-		'eqaction_dodelweb'    => 'at3',
-		'eqaction_doedit'      => 'at4',
-   		//清除缓存
-		'eqaction_cleanall'    => 'at22',
-	)
-);
-//操作日志
-$auth_inc[$i]['low_leve']['adminlogs']= array( "操作日志" =>array(
-		"列表" 		=> 'adminlogs1',
-		"增加" 		=> 'adminlogs2',
-		"删除" 		=> 'adminlogs3',
-		"修改" 		=> 'adminlogs4',
-	),
-   "data" => array(
-   		'eqaction_index'    => 'adminlogs1',
-		'eqaction_doadd'    => 'adminlogs2',
-		'eqaction_add'      => 'adminlogs2',
-		'eqaction_dodelete' => 'adminlogs3',
-		'eqaction_doedit'   => 'adminlogs4',
-		'eqaction_edit'   	=> 'adminlogs4',
-	)
-);
 //欢迎页面
 $auth_inc[$i]['low_leve']['welcome']= array( "欢迎页" =>array(
 		"查看" 		=> 'wel1',
@@ -56,55 +20,84 @@ $auth_inc[$i]['low_leve']['welcome']= array( "欢迎页" =>array(
 	)
 );
 
-//权限管理
+//网站设置
 $i++;
-$auth_inc[$i]['low_title'][] = '权限管理';
-$auth_inc[$i]['low_leve']['auth']= array(
-	"权限管理" =>array(
-		"列表" 		=> 'at73',
-		"增加" 		=> 'at74',
-		"删除" 		=> 'at75',
-		"修改" 		=> 'at76',
-	),
-   "data" => array(
-   		//权限管理
-		'eqaction_index'    => 'at73',
-		'eqaction_doadd'    => 'at74',
-		'eqaction_add'      => 'at74',
-		'eqaction_dodelete' => 'at75',
-		'eqaction_doedit'   => 'at76',
-		'eqaction_edit'   	=> 'at76',
+$auth_inc[$i]['low_title'][] = '网站设置';
+$auth_inc[$i]['low_leve']['setting']= array( "网站设置" =>array(
+	"列表" 		=> 'setting1',
+	"增加" 		=> 'setting2',
+	"删除" 		=> 'setting3',
+	"修改" 		=> 'setting4',
+	"清除" 		=> 'setting5',
+),
+	"data" => array(
+		//网站设置
+		'eqaction_websetting'  => 'setting1',
+		'eqaction_doadd'       => 'setting2',
+		'eqaction_dodelweb'    => 'setting3',
+		'eqaction_doedit'      => 'setting4',
+		'eqaction_cleanall'    => 'setting5'
 	)
 );
+
+//操作日志
+$i++;
+$auth_inc[$i]['low_title'][] = '操作日志';
+$auth_inc[$i]['low_leve']['adminlogs']= array( "操作日志" =>array(
+	"列表" 		=> 'adminlogs1',
+	"增加" 		=> 'adminlogs2',
+	"删除" 		=> 'adminlogs3',
+	"修改" 		=> 'adminlogs4',
+),
+	"data" => array(
+		'eqaction_index'    => 'adminlogs1',
+		'eqaction_doadd'    => 'adminlogs2',
+		'eqaction_add'      => 'adminlogs2',
+		'eqaction_dodelete' => 'adminlogs3',
+		'eqaction_doedit'   => 'adminlogs4',
+		'eqaction_edit'   	=> 'adminlogs4',
+	)
+);
+
 //管理员管理
 $i++;
 $auth_inc[$i]['low_title'][] = '管理员管理';
 $auth_inc[$i]['low_leve']['adminuser']= array(
 	"管理员管理" =>array(
-		"列表" 		=> 'at77',
-		"增加" 		=> 'at78',
-		"删除" 		=> 'at79',
-		"上传头像"	=> 'at99',
-		"修改" 		=> 'at80',
+		"列表" 		=> 'adminuser1',
+		"增加" 		=> 'adminuser2',
+		"删除" 		=> 'adminuser3',
+		"修改" 		=> 'adminuser4',
 	),
-   	"data" => array(
-   		//权限管理
-		'eqaction_index'  => 'at77',
-		'eqaction_dodelete'    => 'at79',
-		'eqaction_header'    => 'at99',
-		'eqaction_memberheaderuplad'    => 'at99',
-		'eqaction_addadmin' =>array(
-			'at78'=>array(//增加
-				'POST'=>array(
-					"uid"=>'G_NOTSET',
-				),
-			),
-			'at80'=>array(//修改
-				'POST'=>array(
-					"uid"=>'G_ISSET',
-				),
-			),
-		),
+	"data" => array(
+		//管理员管理
+		'eqaction_index'    => 'adminuser1',
+		'eqaction_create'   => 'adminuser2',
+		'eqaction_store'    => 'adminuser2',
+		'eqaction_destroy'  => 'adminuser3',
+		'eqaction_edit'     => 'adminuser4',
+		'eqaction_update'   => 'adminuser4',
+	)
+);
+
+//权限管理
+$i++;
+$auth_inc[$i]['low_title'][] = '权限管理';
+$auth_inc[$i]['low_leve']['auth']= array(
+	"权限管理" =>array(
+		"列表" 		=> 'auth1',
+		"增加" 		=> 'auth2',
+		"删除" 		=> 'auth3',
+		"修改" 		=> 'auth4',
+	),
+	"data" => array(
+		//权限管理
+		'eqaction_index'    => 'auth1',
+		'eqaction_create'   => 'auth2',
+		'eqaction_store'    => 'auth2',
+		'eqaction_destroy'  => 'auth3',
+		'eqaction_edit'     => 'auth4',
+		'eqaction_update'   => 'auth4',
 	)
 );
 

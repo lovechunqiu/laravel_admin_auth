@@ -179,5 +179,4 @@
 </body>
 </html>
 
-<script type="text/javascript" src="{{asset('resources/views/admin/js/plugins/ui/index.js')}}"></script>
 @endsection

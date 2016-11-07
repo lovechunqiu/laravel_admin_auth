@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Input;
 
 require_once 'resources/org/code/Code.class.php';
 
-class LoginController extends CommonController
+class LoginController extends Controller
 {
     public function login()
     {

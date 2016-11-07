@@ -11,21 +11,20 @@ use Illuminate\Support\Facades\Input;
 
 class IndexController extends CommonController
 {
+    var $justlogin = true;
     public function index()
     {
-        require_once 'resources/views/admin/auth.inc.php';
-        require_once 'resources/views/admin/menu.inc.php';
         //获取相应管理员下的权限分配
         $aid = session('admin_info.admin');
         $aid = ! empty($aid) ? $aid : 0;
         $admin_info = Admin::find($aid);
         $user_group_id = $admin_info['user_group_id'];
-        $al      = $this->get_group_data($user_group_id);
+        $al      = get_group_data($user_group_id);
         $auth    = $al['controller'];
-        $submenu = $this->cache_menu('submenu_' . $user_group_id);
+        $submenu = cache_menu('submenu_' . $user_group_id);
         if( ! $submenu){
             $submenu = array();
-            foreach ($menu_left as $key => $value) {
+            foreach (json_decode(MENULEFT, TRUE) as $key => $value) {
                 if($value[2]==0) continue;
                 $submenu[$key.'one']['icon'] = '';
                 $submenu[$key.'one']['id'] = $key.'one';
@@ -66,7 +65,7 @@ class IndexController extends CommonController
                     unset($submenu[$key]);
                 }
             }
-            $this->cache_menu('submenu_'.$user_group_id, $submenu);
+            cache_menu('submenu_'.$user_group_id, $submenu);
         }
         return view('admin.home.home', compact('submenu'));
     }
